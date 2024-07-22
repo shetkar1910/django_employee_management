@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title%} Employee Details {% endblock title %}
+{%block content %}
+<h1 class="text-center text-warning">File Uploaded</h1>
+
+<div style="display: flex; justify-content: center; align-items: center; height: 550px; margin: 0;">
+
+    <div class="shadow-lg p-3 mb-5 bg-body rounded .bg-secondary.bg-gradient">
+
+        
+        {% comment %} <h1>File Uploaded</h1> {% endcomment %}
+        <h4 style="text-align: center; color: black">Uploaded File : <a href="{{ uploaded_file_url }}" class="link-info">{{ uploaded_file_url }}</a></h4>
+    </div>
+</div>
+{% endblock content %}

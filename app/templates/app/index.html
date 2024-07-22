@@ -1,0 +1,38 @@
+{% extends "base.html" %} {% block title%} Employee List {% endblock title %} 
+
+{%block content %}
+<h1 class="text-center text-warning">Employees List</h1>
+
+<div class="container">
+  <p class="text-warning">Click here to  Download employee data <a href="{% url 'download_csv' %}" <button type="button" class="btn btn-light btn-sm">Download</button></a>
+  </p>
+  <p class="text-danger">Click here to  Delete all employee data <a href="{% url 'delete_all_emp' %}" <button type="button" class="btn btn-danger btn-sm">Delete All</button></a>
+  </p>
+  {% comment %} <table class="table table-dark table-striped"> {% endcomment %}
+  <table class="table table-bordered transparent-table">
+    <thead class="thead-light">
+    <tr>
+      <th>Id</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Mobile no.</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    {% for employee in employees %}
+    <tr>
+      <td>{{ employee.id }}</td>
+      <td>{{ employee.first_name }}</td>
+      <td>{{ employee.last_name }}</td>
+      <td>{{ employee.email }}</td>
+      <td>{{ employee.mobile }}</td>
+      <td><a href="{% url 'emp_details' pk=employee.pk %}"><button type="button" class="btn btn-outline-warning">View</button></a>
+        {% comment %} <a href="{% url 'emp_update' pk=employee.pk %}"><button type="button" class="btn btn-outline-success">Update</button></a> {% endcomment %}
+        <a href="{% url 'new_update' employee.id %}"><button type="button" class="btn btn-outline-success">Update</button></a>
+        <a href="{% url 'emp_delete' pk=employee.pk %}"><button type="button" class="btn btn-outline-danger">Delete</button></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock content %}

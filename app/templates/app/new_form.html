@@ -1,0 +1,126 @@
+{% extends 'base.html' %} {% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Create Employee{% endblock %}</title>
+  </head>
+  {% block content %} {% if single_emp.id %}
+  <div class="alert alert-info" role="alert">View / Update Employee</div>
+  {% else %}
+  <div class="alert alert-info" role="alert">Create Employee</div>
+  {% endif %}
+  <body>
+    <div class="container-fluid m-2 p-2">
+      <!-- nav bar here in my base file -->
+
+      <!-- <h1>{{logged_in_user}}</h1> -->
+
+      <!-- ----------------------------Form--------------------------------- -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="alert alert-success" role="alert">Welcome</div>
+            <br />
+            <div class="card">
+              <form method="post" action="{% url 'home' %}">
+                {% csrf_token %} {% if single_emp %}
+                <div class="mb-3">
+                  <label for="id" class="form-label">Employee ID</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="id"
+                    name="id"
+                    value="{{single_emp.id}}"
+                    readonly
+                  />
+                </div>
+                {% endif %}
+
+                <div class="mb-3">
+                  <label for="ename" class="form-label">First Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="ename"
+                    name="nm"
+                    value="{{single_emp.name}}"
+                    required
+                  />
+                </div>
+
+                <div class="mb-3">
+                    <label for="edesn" class="form-label">Last Name</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="edesn"
+                      name="edesn"
+                      value="{{single_emp.designation}}"
+                      required
+                    />
+                  </div>
+
+                <div class="mb-3">
+                  <label for="eemail" class="form-label">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="eemail"
+                    name="em"
+                    value="{{single_emp.email}}"
+                    required
+                    aria-describedby="emailHelp"
+                  />
+                  <div id="emailHelp" class="form-text">
+                    We'll never share your email with anyone else.
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="enum" class="form-label">Contact Number</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    id="enum"
+                    name="mn"
+                    value="{{single_emp.mobile_num}}"
+                    required
+                  />
+                </div>
+                
+
+                {% if single_emp %}
+                <button type="submit" class="btn btn-outline-success">
+                  Update
+                </button>
+                {% else %}
+                <button type="submit" class="btn btn-outline-primary">
+                  Submit
+                </button>
+
+                {% endif %}
+              </form>
+            </div>
+          </div>
+          <!-- <div class="col-md-6">
+              <img src="C:\Users\shetk\Desktop\A_Python_B11\framework\framework\static\logo.jpg" alt="Logo Img" class="img-fluid" />
+            </div> -->
+
+          <div class="col-md-6">
+            <img
+              src="{% static 'app/images/emp.jpg' %}"
+              alt="Logo Img"
+              class="img-fluid"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+{% endblock %}

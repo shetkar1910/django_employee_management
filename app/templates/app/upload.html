@@ -1,0 +1,177 @@
+{% extends "base.html" %} {% block title%} Upload Data {% endblock title %}
+{%load static %} {%block content %}
+<h1 style="text-align: center; color: yellow">
+  Employee Managenet Application
+</h1>
+<div class="row">
+  <!-- -------------add emp------------- -->
+
+  <div class="col-md-4">
+    <div class="container dark-transparent-container">
+      <h1>Employee Form</h1>
+
+      {% if employee.id %}
+      <div class="alert alert-info" role="alert">Update Employee</div>
+      {% else %}
+      <div class="alert alert-info" role="alert">Create Employee</div>
+      {% endif %}
+
+      <!-- <form method="post" action="{% url 'addemp' %}"> -->
+      <form method="post" action="{% if employee %}{% url 'new_update' employee.id %}{% else %}{% url 'new_create' %}{% endif %}">
+
+        {% csrf_token %} 
+        {% if employee %}
+        <div class="mb-3">
+          <label for="id" class="form-label">Employee ID</label>
+          <input
+            type="number"
+            class="form-control transparent-input"
+            id="id"
+            name="id"
+            value="{{ employee.id }}"
+            readonly
+          />
+        </div>
+        {% endif %}
+
+        <div class="mb-3">
+          <label for="ename" class="form-label">First Name</label>
+          <input
+            type="text"
+            class="form-control transparent-input"
+            id="ename"
+            name="first_name"
+            value="{{employee.first_name}}"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="edesn" class="form-label">Last Name</label>
+          <input
+            type="text"
+            class="form-control transparent-input"
+            id="edesn"
+            name="last_name"
+            value="{{employee.last_name}}"
+            required
+          />
+        </div>
+
+        <div class="mb-3">
+          <label for="eemail" class="form-label">Email</label>
+          <input
+            type="email"
+            class="form-control transparent-input"
+            id="eemail"
+            name="email"
+            value="{{employee.email}}"
+            required
+            aria-describedby="emailHelp"
+          />
+          <div id="emailHelp" class="form-text">
+            We'll never share your email with anyone else.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="enum" class="form-label">Contact Number</label>
+          <input
+            type="number"
+            class="form-control transparent-input"
+            id="enum"
+            name="mobile"
+            value="{{employee.mobile}}"
+            required
+          />
+        </div>
+
+        {% if employee %}
+        <button type="submit" class="btn btn-outline-success">Update</button>
+        {% else %}
+        <button type="submit" class="btn btn-warning">Submit</button>
+
+        {% endif %}
+      </form>
+    </div>
+  </div>
+
+  <!-- ---------CSV------------------ -->
+
+  <div class="col-md-4">
+    <!-- <div class="p-3 mb-2 bg-dark-subtle text-dark-emphasis"> -->
+    <div class="container dark-transparent-container">
+      <h1>CSV Data Upload</h1>
+      <form
+        method="post"
+        action="{% url 'upload_csv' %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Upload CSV File</label>
+          <input
+            class="form-control transparent-input"
+            type="file"
+            id="formFile"
+            name="csv_file"
+            accept=".csv"
+          />
+        </div>
+
+        <button type="submit" class="btn btn-warning">Upload</button>
+      </form>
+
+      <img
+        src="{% static 'app/images/logo.jpg' %}"
+        class="rounded mt-4"
+        style="width: 100%; height: 250px; display: block"
+        alt="..."
+      />
+    </div>
+    <!-- </div> -->
+  </div>
+
+  <!-- ----------File-------------- -->
+
+  <div class="col-md-4">
+    <!-- <div class="p-3 mb-2 bg-dark-subtle text-dark-emphasis"> -->
+    <div class="container dark-transparent-container">
+      <h1>File Upload Form</h1>
+      <form
+        method="post"
+        action="{% url 'upload_file' %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input
+            type="text"
+            class="form-control transparent-input"
+            id="title"
+            name="title"
+            aria-describedby="emailHelp"
+          />
+          <div id="emailHelp" class="form-text">Add title for your file.</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Upload File</label>
+          <input
+            class="form-control transparent-input"
+            type="file"
+            id="formFile"
+            name="document"
+          />
+        </div>
+        <!-- <a href=""> -->
+        <button type="submit" class="btn btn-warning">Upload</button>
+        <!-- </a> -->
+      </form>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>
+{% endblock content %}

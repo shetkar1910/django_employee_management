@@ -1,0 +1,14 @@
+{% extends "base.html" %} {% block title%} Employee Details {% endblock title %}
+{%block content %}
+<h1 class="text-center text-warning">Confirm Delete</h1>
+    <h4 style="color: white;">
+        Are you sure you want to delete employee "{{ object.first_name }}"?
+    </h4>
+
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger">Confirm Delete</button>
+    </form>
+    <a href="{% url 'emp_list' %}" class="link-warning">Cancel</a>
+{% endblock content %}
+
